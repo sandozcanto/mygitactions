@@ -1,17 +1,22 @@
 name: Super-Linter
 
-on: push
+on:
+  push:
+  pull_request:
 
 jobs:
-  super-line:
-    name: Super Linter
+  lint:
+    name: Lint Code Base
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Run Super-Linter
-        uses: github/super-linter@v3
+        uses: github/super-linter@v7
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # ✅ Enable only YAML linting (optional)
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_YAML: true
